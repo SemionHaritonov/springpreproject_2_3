@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thumeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>All users</title>
+</head>
+
+<style>
+    .defaultButton {width: 55px;}
+</style>
+
+<body>
+
+<table border=1 bordercolor="black">
+    <thead>
+    <tr>
+        <th> id </th> <th> Name </th> <th> Email </th> <th> Details </th>  <th> Update </th> <th> Remove </th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:if="${users.isEmpty()}">
+        <td colspan="6"> No Users Available </td>
+    </tr>
+    <tr th:each="user : ${users}">
+        <td><span th:text="${user.id}"> id </span></td>
+        <td><span th:text="${user.name}"> Name </span></td>
+        <td><span th:text="${user.email}"> Email </span></td>
+
+        <td><form th:method="GET" th:action="@{/users/{id}(id=${user.getId()})}">
+            <button class="button defaultButton" style="background: burlywood">Show</button></form></td>
+        <td><form th:method="GET" th:action="@{/users/{id}/edit(id=${user.getId()})}">
+            <button class="button defaultButton" style="background: aquamarine">Edit</button></form></td>
+        <td><form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
+        <input type="submit" class="button defaultButton" style="background: red" value="Delete"></form></td>
+    </tr>
+    </tbody>
+
+</table>
+
+<br>
+<a href="/users/new"> Add new User </a>
+
+</body>
+</html>
